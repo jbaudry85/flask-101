@@ -11,10 +11,10 @@ class TestViews(TestCase):
         response = self.client.get("/api/v1/products")
         products = response.json
         self.assertIsInstance(products, list)
-        self.assertGreater(len(products), 3)
+        self.assertGreater(len(products), 1)
 
     def test_get_valid_products(self):
-        response = self.client.get("/api/v1/products/3")
+        response = self.client.get("/api/v1/products/2")
         #print(response.json)
         self.assertEqual(response.status_code, 200)
 
@@ -29,12 +29,11 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_delete_valid_products(self):
-        response = self.client.delete("/api/v1/products/3")
+        response = self.client.delete("/api/v1/products/1")
         #print(response.status_code)
         self.assertEqual(response.status_code, 204)
 
     def test_create_valid_products(self):
-        response = self.client.post("/api/v1/products")
+        response = self.client.post("/api/v1/products",data=dict(id=5,name='Toto'))
         #print(response.status_code)
         self.assertEqual(response.status_code, 201)
-
